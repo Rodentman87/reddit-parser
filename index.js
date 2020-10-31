@@ -9,6 +9,8 @@ const { React, getModule } = require('powercord/webpack');
 
 const RedditLink = require('./Components/RedditMention');
 
+const componentTypesToCheck = ["u","em","strong"]
+
 module.exports = class RedditParser extends Plugin {
   async startPlugin() {
     this.loadStylesheet('style.css');
@@ -23,16 +25,20 @@ module.exports = class RedditParser extends Plugin {
     const final = [];
     res.forEach(piece => {
         if(!(typeof piece === "string")) {
+            if(componentTypesToCheck.includes(piece.type)) {
+              // This piece of the message is one of the react elements I want to check, I can just run this function recursively
+              piece.props.children = this.process({}, piece.props.children);
+            }
             final.push(piece);
             return;
         }
-        if(!piece.match(/\/?[ur]\/[a-zA-Z_-]{3,20}/g)) {
+        if(!piece.match(/\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g)) {
             final.push(piece);
             return;
         }
         const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,20})/);
         words.forEach(word => {
-          if(!word.match(/\/?[ur]\/[a-zA-Z_-]{3,20}/g)) {
+          if(!word.match(/\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g)) {
             final.push(word);
             return;
           }

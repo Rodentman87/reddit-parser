@@ -5,7 +5,7 @@ class RedditLink extends React.PureComponent {
     const { redditLink } = this.props;
 
     // Filter out the leading / if it has one
-    const tag = redditLink.match(/\/?([ur]\/[a-zA-Z_-]{3,20})/)[1];
+    const tag = redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{3,20})/)[1];
 
     return (
       <a
