@@ -50,10 +50,14 @@ class RedditLink extends React.Component {
   async getTooltip(tag) {
     if (tag.startsWith("u")) {
       // Tooltip for a user
-      const result = await get(
-        `https://www.reddit.com/user/${tag.substring(2)}/about.json`
-      );
-      if(result.status === 404) return "User does not exist!";
+      let result = null;
+      try {
+        result = await get(
+          `https://www.reddit.com/user/${tag.substring(2)}/about.json`
+        );
+      } catch (err) {
+        return "User does not exist!";
+      }
       const iconImage = result.body.data.icon_img.substring(
         0,
         result.body.data.icon_img.indexOf("?")
@@ -71,9 +75,14 @@ class RedditLink extends React.Component {
       );
     } else {
       // Tooltip for a subreddit
-      const result = await get(`https://www.reddit.com/${tag}/about.json`);
+      let result = null;
+      try {
+        result = await get(`https://www.reddit.com/${tag}/about.json`);
+      } catch (err) {
+        return "Subreddit does not exist!";
+      }
+      if(result.statusCode === 302) return "Subreddit does not exist!";
       const iconImage = result.body.data.icon_img;
-      if(result.status === 404) return "Subreddit does not exist!";
       return (
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
