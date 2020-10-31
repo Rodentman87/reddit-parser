@@ -1,0 +1,7 @@
+{
+    "name": "Reddit Mentions",
+    "version": "0.1.0",
+    "description": "A small plugin that formats reddit tags (u/ and r/) into clickable links",
+    "author": "rodentman87",
+    "license": "MIT"
+}
