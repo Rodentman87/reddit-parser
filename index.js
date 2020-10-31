@@ -24,24 +24,20 @@ module.exports = class RedditParser extends Plugin {
             final.push(piece);
             return;
         }
-        if(!piece.match(/\/?[ur]\/\w{3,20}/g)) {
+        if(!piece.match(/\/?[ur]\/[a-zA-Z_-]{3,20}/g)) {
             final.push(piece);
             return;
         }
-        let piecesToPush = [];
-        const words = piece.split(" ");
+        const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,20})/);
         words.forEach(word => {
-            if(!word.match(/\/?[ur]\/\w{3,20}/)) {
-                piecesToPush.push(word);
-                return;
-            }
-            final.push(piecesToPush.join(" ") + " ");
-            piecesToPush = [];
-            final.push(React.createElement(RedditLink, {
-                redditLink: word
-            }));
-        })
-        
+          if(!word.match(/\/?[ur]\/[a-zA-Z_-]{3,20}/g)) {
+            final.push(word);
+            return;
+          }
+          final.push(React.createElement(RedditLink, {
+            redditLink: word
+          }))
+        })      
     });
     return final;
   }
