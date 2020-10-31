@@ -53,6 +53,7 @@ class RedditLink extends React.Component {
       const result = await get(
         `https://www.reddit.com/user/${tag.substring(2)}/about.json`
       );
+      if(result.status === 404) return "User does not exist!";
       const iconImage = result.body.data.icon_img.substring(
         0,
         result.body.data.icon_img.indexOf("?")
@@ -72,6 +73,7 @@ class RedditLink extends React.Component {
       // Tooltip for a subreddit
       const result = await get(`https://www.reddit.com/${tag}/about.json`);
       const iconImage = result.body.data.icon_img;
+      if(result.status === 404) return "Subreddit does not exist!";
       return (
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
