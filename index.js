@@ -11,6 +11,8 @@ const RedditLink = require('./Components/RedditMention');
 
 module.exports = class RedditParser extends Plugin {
   async startPlugin() {
+    this.loadStylesheet('style.css');
+
     const parser = await getModule(['parse', 'parseTopic']);
 
     const process = this.process.bind(this);

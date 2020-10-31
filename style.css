@@ -1,0 +1,9 @@
+.reddit-mention {
+    background-color: rgba(255, 69, 0, 0.2);
+    border-radius: 5px;
+    padding: 0 4px;
+    transition: background-color 0.5s;
+}
+.reddit-mention:hover {
+    background-color: rgba(255, 69, 0, 0.5);
+}

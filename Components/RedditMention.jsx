@@ -6,7 +6,7 @@ class RedditLink extends React.PureComponent {
 
         if(redditLink.startsWith("/")){
             return <a 
-                class={"anchor-3Z-8Bb anchorUnderlineOnHover-2ESHQB"}
+                class={"reddit-mention"}
                 title={`https://reddit.com${redditLink}`}
                 rel={"noreferrer noopener"}
                 href={`https://reddit.com${redditLink}`}
@@ -17,7 +17,7 @@ class RedditLink extends React.PureComponent {
             </a>;
         } else {
             return <a 
-                class={"anchor-3Z-8Bb anchorUnderlineOnHover-2ESHQB"}
+                class={"reddit-mention"}
                 title={`https://reddit.com/${redditLink}`}
                 rel={"noreferrer noopener"}
                 href={`https://reddit.com/${redditLink}`}
