@@ -1,9 +1,24 @@
 .reddit-mention {
-    background-color: inherit;
-    border-radius: 5px;
-    padding: 0 4px;
-    transition: background-color 0.5s;
+  background-color: inherit;
+  border-radius: 5px;
+  padding: 0 4px;
+  transition: background-color 0.5s;
 }
 .reddit-mention:hover {
-    background-color: rgba(255, 69, 0, 0.5);
+  background-color: rgba(255, 69, 0, 0.5);
+}
+
+.reddit-tooltip {
+  margin: auto 0;
+}
+
+.reddit-tooltip-wrapper {
+  height: 100%;
+}
+
+.reddit-nsfw-tag {
+  padding: 0 4px;
+  margin-left: 2px;
+  background-color: red;
+  color: white;
 }
