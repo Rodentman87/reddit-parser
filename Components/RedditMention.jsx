@@ -55,7 +55,6 @@ class RedditLink extends React.Component {
         result = await get(
           `https://www.reddit.com/user/${tag.substring(2)}/about.json`
         );
-        console.log(result.body.data)
       } catch (err) {
         return "User does not exist!";
       }
