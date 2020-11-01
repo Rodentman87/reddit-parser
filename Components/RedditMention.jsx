@@ -66,7 +66,7 @@ class RedditLink extends React.Component {
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
           <span class="reddit-tooltip">
-            {tag} Karma: {result.body.data["total_karma"]}
+            {tag} Karma: {result.body.data["total_karma"].toLocaleString()}
             {result.body.data["subreddit"]["over_18"] ? (
               <span class="reddit-nsfw-tag">NSFW</span>
             ) : null}
@@ -87,7 +87,7 @@ class RedditLink extends React.Component {
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
           <span class="reddit-tooltip">
-            {tag}
+            {tag} Subscribers: {result.body.data.subscribers.toLocaleString()}
             {result.body.data["over18"] ? (
               <span class="reddit-nsfw-tag">NSFW</span>
             ) : null}
