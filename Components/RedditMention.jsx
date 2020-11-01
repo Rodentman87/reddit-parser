@@ -66,8 +66,8 @@ class RedditLink extends React.Component {
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
           <span class="reddit-tooltip">
-            {tag}
-            {result.body.data["over_18"] ? (
+            {tag} Karma: {result.body.data["total_karma"]}
+            {result.body.data["subreddit"]["over_18"] ? (
               <span class="reddit-nsfw-tag">NSFW</span>
             ) : null}
           </span>
