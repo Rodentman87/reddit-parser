@@ -63,7 +63,7 @@ class RedditLink extends React.Component {
         result.body.data.icon_img.indexOf("?")
       );
       return (
-        <span>
+        <span class="reddit-tooltip-wrapper">
           {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
           <span class="reddit-tooltip">
             {tag}

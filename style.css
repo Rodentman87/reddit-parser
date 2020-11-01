@@ -13,7 +13,8 @@
 }
 
 .reddit-tooltip-wrapper {
-  height: 100%;
+  display: flex;
+  margin: .1em;
 }
 
 .reddit-nsfw-tag {
@@ -21,4 +22,8 @@
   margin-left: 2px;
   background-color: red;
   color: white;
+}
+
+.reddit-tooltip-wrapper img {
+  border-radius: 50%;  
 }
