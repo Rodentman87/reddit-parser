@@ -11,6 +11,8 @@ const RedditLink = require('./Components/RedditMention');
 
 const componentTypesToCheck = ["u","em","strong"]
 
+const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g; 
+
 module.exports = class RedditParser extends Plugin {
   async startPlugin() {
     this.loadStylesheet('style.css');
@@ -32,13 +34,13 @@ module.exports = class RedditParser extends Plugin {
             final.push(piece);
             return;
         }
-        if(!piece.match(/\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g)) {
+        if(!piece.match(tagRegex)) {
             final.push(piece);
             return;
         }
         const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,20})/);
         words.forEach(word => {
-          if(!word.match(/\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g)) {
+          if(!word.match(tagRegex)) {
             final.push(word);
             return;
           }
