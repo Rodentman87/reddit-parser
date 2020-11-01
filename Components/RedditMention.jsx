@@ -64,7 +64,9 @@ class RedditLink extends React.Component {
       );
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
+          {iconImage !== "" ? (
+            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+          ) : null}
           <span class="reddit-tooltip">
             {tag} Karma: {result.body.data["total_karma"]}
             {result.body.data["subreddit"]["over_18"] ? (
@@ -81,11 +83,13 @@ class RedditLink extends React.Component {
       } catch (err) {
         return "Subreddit does not exist!";
       }
-      if(result.statusCode === 302) return "Subreddit does not exist!";
+      if (result.statusCode === 302) return "Subreddit does not exist!";
       const iconImage = result.body.data.icon_img;
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
+          {iconImage !== "" ? (
+            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+          ) : null}
           <span class="reddit-tooltip">
             {tag}
             {result.body.data["over18"] ? (
