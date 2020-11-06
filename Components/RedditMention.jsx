@@ -8,11 +8,16 @@ class RedditLink extends React.Component {
     super(props);
     this.state = {
       tooltip: "Loading...",
+      iconImageLoaded: false,
+      iconImage: "",
+      nsfw: false,
     };
   }
 
   render() {
     const { redditLink } = this.props;
+
+    const _this = this;
 
     // Filter out the leading / if it has one
     const tag = redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{3,20})/)[1];
@@ -20,9 +25,19 @@ class RedditLink extends React.Component {
     return (
       <Tooltip position={"top"} text={this.state.tooltip}>
         {(props) => (
-          <span {...props}>
+          <span
+            {...props}
+            class={_this.props.displayAsMention ? "mention" : ""}
+          >
+            {this.props.showIcon &&
+            this.state.iconImageLoaded &&
+            !this.state.nsfw ? (
+              <img
+                src={this.state.iconImage}
+                style={{ width: "1em", height: "1em" }}
+              />
+            ) : null}
             <a
-              class={"reddit-mention"}
               title={`https://reddit.com/${tag}`}
               rel={"noreferrer noopener"}
               href={`https://reddit.com/${tag}`}
@@ -62,9 +77,16 @@ class RedditLink extends React.Component {
         0,
         result.body.data.icon_img.indexOf("?")
       );
+      this.setState({
+        iconImage,
+        iconImageLoaded: true,
+        nsfw: result.body.data["subreddit"]["over_18"],
+      });
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
+          {iconImage !== "" && !result.body.data["subreddit"]["over_18"] ? (
+            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+          ) : null}
           <span class="reddit-tooltip">
             {tag} <br />
             Karma: {result.body.data["total_karma"].toLocaleString()}
@@ -82,11 +104,18 @@ class RedditLink extends React.Component {
       } catch (err) {
         return "Subreddit does not exist!";
       }
-      if(result.statusCode === 302) return "Subreddit does not exist!";
+      if (result.statusCode === 302) return "Subreddit does not exist!";
       const iconImage = result.body.data.icon_img;
+      this.setState({
+        iconImage,
+        iconImageLoaded: true,
+        nsfw: result.body.data["over18"],
+      });
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" ? <img src={iconImage} style={{ width: "30px", height: "30px" }} /> : null}
+          {iconImage !== "" && !result.body.data["over18"] ? (
+            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+          ) : null}
           <span class="reddit-tooltip">
             {tag} <br />
             Subscribers: {result.body.data.subscribers.toLocaleString()}

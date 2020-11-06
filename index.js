@@ -5,19 +5,27 @@
 
 const { Plugin } = require("powercord/entities");
 const { inject, uninject } = require("powercord/injector");
-const { React, getModule } = require('powercord/webpack');
+const { React, getModule } = require("powercord/webpack");
 
-const RedditLink = require('./Components/RedditMention');
+const RedditLink = require("./Components/RedditMention");
 
-const componentTypesToCheck = ["u","em","strong"]
+const Settings = require("./Components/Settings");
 
-const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g; 
+const componentTypesToCheck = ["u", "em", "strong"];
+
+const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{3,20}/g;
 
 module.exports = class RedditParser extends Plugin {
   async startPlugin() {
-    this.loadStylesheet('style.css');
+    powercord.api.settings.registerSettings("reddit-mentions", {
+      category: this.entityID,
+      label: "Reddit Mentions",
+      render: Settings,
+    });
 
-    const parser = await getModule(['parse', 'parseTopic']);
+    this.loadStylesheet("style.css");
+
+    const parser = await getModule(["parse", "parseTopic"]);
 
     const process = this.process.bind(this);
     inject(`reddit-parser`, parser, "parse", process);
@@ -25,34 +33,39 @@ module.exports = class RedditParser extends Plugin {
 
   process(args, res, ops = {}) {
     const final = [];
-    res.forEach(piece => {
-        if(!(typeof piece === "string")) {
-            if(componentTypesToCheck.includes(piece.type)) {
-              // This piece of the message is one of the react elements I want to check, I can just run this function recursively
-              piece.props.children = this.process({}, piece.props.children);
-            }
-            final.push(piece);
-            return;
+    res.forEach((piece) => {
+      if (!(typeof piece === "string")) {
+        if (componentTypesToCheck.includes(piece.type)) {
+          // This piece of the message is one of the react elements I want to check, I can just run this function recursively
+          piece.props.children = this.process({}, piece.props.children);
         }
-        if(!piece.match(tagRegex)) {
-            final.push(piece);
-            return;
+        final.push(piece);
+        return;
+      }
+      if (!piece.match(tagRegex)) {
+        final.push(piece);
+        return;
+      }
+      const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,20})/);
+      words.forEach((word) => {
+        if (!word.match(tagRegex)) {
+          final.push(word);
+          return;
         }
-        const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,20})/);
-        words.forEach(word => {
-          if(!word.match(tagRegex)) {
-            final.push(word);
-            return;
-          }
-          final.push(React.createElement(RedditLink, {
-            redditLink: word
-          }))
-        })      
+        final.push(
+          React.createElement(RedditLink, {
+            redditLink: word,
+            displayAsMention: this.settings.get("mention", true),
+            showIcon: this.settings.get("icon", true),
+          })
+        );
+      });
     });
     return final;
   }
 
   pluginWillUnload() {
     uninject("reddit-parser");
+    powercord.api.settings.unregisterSettings("reddit-mentions");
   }
 };
