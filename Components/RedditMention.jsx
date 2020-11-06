@@ -31,6 +31,7 @@ class RedditLink extends React.Component {
           >
             {this.props.showIcon &&
             this.state.iconImageLoaded &&
+            this.state.iconImage !== "" &&
             !this.state.nsfw ? (
               <img
                 src={this.state.iconImage}
