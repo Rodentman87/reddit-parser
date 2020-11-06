@@ -39,6 +39,10 @@ module.exports = class RedditParser extends Plugin {
           // This piece of the message is one of the react elements I want to check, I can just run this function recursively
           piece.props.children = this.process({}, piece.props.children);
         }
+        if (piece.type.name && piece.type.name === "StringPart") {
+          // This is a Base64 tooltip caught by Message Tooltips
+          piece.props.parts = this.process({}, piece.props.parts);
+        }
         final.push(piece);
         return;
       }
