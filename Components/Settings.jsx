@@ -19,6 +19,13 @@ module.exports = class Settings extends React.PureComponent {
         >
           Show icons in messages
         </SwitchItem>
+        <SwitchItem
+          note="Should icons for NSFW subs and users be displayed next to the tag in messages?"
+          value={this.props.getSetting("show-nsfw", false)}
+          onChange={() => this.props.toggleSetting("show-nsfw", false)}
+        >
+          Show NSFW icons
+        </SwitchItem>
       </div>
     );
   }

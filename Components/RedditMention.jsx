@@ -32,10 +32,15 @@ class RedditLink extends React.Component {
             {this.props.showIcon &&
             this.state.iconImageLoaded &&
             this.state.iconImage !== "" &&
-            !this.state.nsfw ? (
+            (!this.state.nsfw || this.props.showNSFW) ? (
               <img
                 src={this.state.iconImage}
-                style={{ width: "1em", height: "1em", borderRadius: "50%" }}
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  borderRadius: "50%",
+                  marginRight: "5px",
+                }}
               />
             ) : null}
             <a
@@ -85,7 +90,8 @@ class RedditLink extends React.Component {
       });
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" && !result.body.data["subreddit"]["over_18"] ? (
+          {iconImage !== "" &&
+          (!result.body.data["subreddit"]["over_18"] || this.props.showNSFW) ? (
             <img
               src={iconImage}
               style={{ width: "30px", height: "30px", borderRadius: "50%" }}
@@ -120,7 +126,8 @@ class RedditLink extends React.Component {
       });
       return (
         <span class="reddit-tooltip-wrapper">
-          {iconImage !== "" && !result.body.data["over18"] ? (
+          {iconImage !== "" &&
+          (!result.body.data["over18"] || this.props.showNSFW) ? (
             <img
               src={iconImage}
               style={{ width: "30px", height: "30px", borderRadius: "50%" }}

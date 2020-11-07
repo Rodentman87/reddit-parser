@@ -61,6 +61,7 @@ module.exports = class RedditParser extends Plugin {
             redditLink: word,
             displayAsMention: this.settings.get("mention", true),
             showIcon: this.settings.get("icon", true),
+            showNSFW: this.settings.get("show-nsfw", false),
           })
         );
       });
