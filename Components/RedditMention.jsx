@@ -35,7 +35,7 @@ class RedditLink extends React.Component {
             !this.state.nsfw ? (
               <img
                 src={this.state.iconImage}
-                style={{ width: "1em", height: "1em" }}
+                style={{ width: "1em", height: "1em", borderRadius: "50%" }}
               />
             ) : null}
             <a
@@ -86,7 +86,10 @@ class RedditLink extends React.Component {
       return (
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" && !result.body.data["subreddit"]["over_18"] ? (
-            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+            <img
+              src={iconImage}
+              style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+            />
           ) : null}
           <span class="reddit-tooltip">
             {tag} <br />
@@ -106,7 +109,10 @@ class RedditLink extends React.Component {
         return "Subreddit does not exist!";
       }
       if (result.statusCode === 302) return "Subreddit does not exist!";
-      const iconImage = result.body.data.icon_img;
+      const iconImage = result.body.data["community_icon"].substring(
+        0,
+        result.body.data["community_icon"].indexOf("?")
+      );
       this.setState({
         iconImage,
         iconImageLoaded: true,
@@ -115,7 +121,10 @@ class RedditLink extends React.Component {
       return (
         <span class="reddit-tooltip-wrapper">
           {iconImage !== "" && !result.body.data["over18"] ? (
-            <img src={iconImage} style={{ width: "30px", height: "30px" }} />
+            <img
+              src={iconImage}
+              style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+            />
           ) : null}
           <span class="reddit-tooltip">
             {tag} <br />
