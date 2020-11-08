@@ -1,10 +1,11 @@
 .reddit-tooltip {
-  margin: auto 5px;
+  margin: auto 10px auto 5px;
+  white-space: nowrap;
 }
 
 .reddit-tooltip-wrapper {
   display: flex;
-  margin: .1em;
+  margin: 0.1em;
 }
 
 .reddit-nsfw-tag {
@@ -15,5 +16,5 @@
 }
 
 .reddit-tooltip-wrapper img {
-  border-radius: 50%;  
+  border-radius: 50%;
 }
