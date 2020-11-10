@@ -27,7 +27,7 @@ class RedditLink extends React.Component {
         {(props) => (
           <span
             {...props}
-            class={_this.props.displayAsMention ? "mention" : ""}
+            class={_this.props.displayAsMention ? "wrapper-3WhCwL" : ""}
           >
             {this.props.showIcon &&
             this.state.iconImageLoaded &&
@@ -40,6 +40,8 @@ class RedditLink extends React.Component {
                   height: "1em",
                   borderRadius: "50%",
                   marginRight: "5px",
+                  position: "relative",
+                  top: "0.1em",
                 }}
               />
             ) : null}
