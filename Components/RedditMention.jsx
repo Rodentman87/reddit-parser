@@ -112,6 +112,7 @@ class RedditLink extends React.Component {
       try {
         result = await get(`https://www.reddit.com/${tag}/about.json`);
       } catch (err) {
+        if (err.statusCode === 403) return "This subreddit is private!";
         return "Subreddit does not exist!";
       }
       if (result.statusCode === 302) return "Subreddit does not exist!";
