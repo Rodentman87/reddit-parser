@@ -13,7 +13,7 @@ const Settings = require("./Components/Settings");
 
 const componentTypesToCheck = ["u", "em", "strong"];
 
-const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{3,21}/g;
+const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{2,21}/g;
 
 module.exports = class RedditParser extends Plugin {
   async startPlugin() {
