@@ -20,7 +20,7 @@ class RedditLink extends React.Component {
     const _this = this;
 
     // Filter out the leading / if it has one
-    const tag = redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{3,20})/)[1];
+    const tag = redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{2,21})/)[1];
 
     return (
       <Tooltip position={"top"} text={this.state.tooltip}>
@@ -62,7 +62,7 @@ class RedditLink extends React.Component {
 
   componentWillMount() {
     this.getTooltip(
-      this.props.redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{3,20})/)[1]
+      this.props.redditLink.match(/\/?([ur]\/[a-zA-Z_\-0-9]{2,21})/)[1]
     ).then((tooltip) => {
       this.setState({
         tooltip,

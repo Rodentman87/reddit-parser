@@ -15,7 +15,9 @@ const componentTypesToCheck = ["u", "em", "strong"];
 
 const tagRegex = /(?<!\w)\/?[ur]\/[a-zA-Z_\-0-9]{2,21}/g;
 
-module.exports = class RedditParser extends Plugin {
+module.exports = class RedditParser extends (
+  Plugin
+) {
   async startPlugin() {
     powercord.api.settings.registerSettings("reddit-mentions", {
       category: this.entityID,
@@ -50,7 +52,7 @@ module.exports = class RedditParser extends Plugin {
         final.push(piece);
         return;
       }
-      const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{3,21})/);
+      const words = piece.split(/(\/?[ur]\/[a-zA-Z_\-0-9]{2,21})/);
       words.forEach((word) => {
         if (!word.match(tagRegex)) {
           final.push(word);
